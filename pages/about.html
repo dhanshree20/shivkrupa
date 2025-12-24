@@ -337,6 +337,22 @@
                 <li><a href="./about.html">About Us</a></li>
                 <li><a href="./product.html">Product</a></li>
                 <li><a href="./gallery.html">Gallery</a></li>
+                <li class="brochure-dropdown">
+                    <a href="javascript:void(0)">Brochure ▾</a>
+
+                    <ul class="brochure-menu">
+                        <li>
+                            <a href="/assets/e profile  SHIVKRUPA ENTERPRISES.pdf.pdf (1).pdf" target="_blank">
+                                View Brochure
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/assets/e profile  SHIVKRUPA ENTERPRISES.pdf.pdf (1).pdf" download>
+                                Download Brochure
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
 
             <!-- Right Gradient Section -->
@@ -345,6 +361,17 @@
             </div>
         </div>
     </nav>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const brochure = document.querySelector(".brochure-dropdown > a");
+
+            brochure.addEventListener("click", () => {
+                const menu = brochure.nextElementSibling;
+                menu.classList.toggle("show");
+            });
+        });
+    </script>
 
     <!-- small hero for About page -->
     <section class="mini-hero mini-hero--about" aria-labelledby="about-hero-title" role="banner">
