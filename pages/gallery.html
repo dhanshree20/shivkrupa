@@ -1,0 +1,564 @@
+<!-- pages/gallery.html -->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shivkrupa — Gallery (Masonry)</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --gap: 18px;
+      --accent: #5a2ee8;
+      --card-radius: 14px;
+      --overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.48));
+    }
+
+    html,
+    body {
+      height: 100%;
+      font-family: "Poppins", system-ui, Arial;
+      margin: 0;
+      color: #0b1b2b;
+    }
+
+    .page-wrap {
+      width: 100%;
+      margin: 28px auto;
+    }
+
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .gallery-header .clients-kicker {
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .gallery-header h1 {
+      font-family: "Merriweather", serif;
+      font-size: 2rem;
+      margin: 0 0 8px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      background-color: #ededed;
+      padding: 20px;
+      width: 100%;
+    }
+
+    .filters button {
+      border-radius: 999px;
+      border: 1px solid rgba(11, 18, 40, 0.06);
+      padding: 8px 14px;
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .filters button.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(90, 46, 232, 0.12);
+    }
+
+    /* ==== NEW GRID LAYOUT (no gaps, centered when few items) ==== */
+    .masonry {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
+      justify-content: center;
+      gap: var(--gap);
+      width: 100%;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+    .masonry-item {
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      background: #f3f3f1;
+      box-shadow: 0 12px 30px rgba(2, 8, 20, 0.06);
+      position: relative;
+      transform-origin: center;
+      transition: transform .22s ease, box-shadow .22s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .masonry-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 26px 60px rgba(2, 8, 20, 0.12);
+    }
+
+    .masonry-item img {
+      display: block;
+      width: 100%;
+      /* same height for all -> no white gaps */
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      vertical-align: middle;
+      transition: transform .35s ease;
+      flex-shrink: 0;
+    }
+
+    .masonry-item:hover img {
+      transform: scale(1.03);
+    }
+
+    /* overlay caption */
+    .tile-caption {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.36);
+      color: #fff;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.24);
+    }
+
+    .tile-caption .meta {
+      font-size: 0.95rem;
+      opacity: 0.95;
+    }
+
+    .tile-badge {
+      background: rgba(255, 255, 255, 0.95);
+      color: #111;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(11, 27, 40, 0.06);
+    }
+
+    /* we no longer need h-lg / h-md / h-sm explicit heights,
+       grid + aspect-ratio keeps layout clean */
+
+    /* lightbox modal (simple) */
+    .lb-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 10, 20, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+    }
+
+    .lb-backdrop.active {
+      display: flex;
+    }
+
+    .lb-inner {
+      max-width: 95%;
+      max-height: 92%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 40px 120px rgba(2, 8, 20, 0.6);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .lb-inner img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .lb-close {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      border: none;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .lb-prev {
+      left: 10px;
+    }
+
+    .lb-next {
+      right: 10px;
+    }
+
+    /* accessibility focus */
+    .masonry-item:focus-within {
+      outline: 4px solid rgba(90, 46, 232, 0.12);
+      outline-offset: 6px;
+    }
+  </style>
+  <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+  <!-- Minimal nav for testing -->
+  <nav class="clean-navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html"><img src="/assets/logo.png" alt="Logo" class="logo"></a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Open Menu">
+        ☰
+      </button>
+      <ul class="nav-menu" id="mainNav">
+        <li><a href="/index.html" class="active">Home</a></li>
+        <li><a href="./about.html">About Us</a></li>
+        <li><a href="./product.html">Product</a></li>
+        <li><a href="./gallery.html">Gallery</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="./contact.html" class="signin-btn">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="mini-hero mini-hero--about" aria-labelledby="about-hero-title" role="banner">
+    <img src="/assets/hero-img/gallery-bg.png" class="mini-hero__bg" style="width: 100%" />
+    <div class="mini-hero__inner container">
+      <h1 id="about-hero-title" class="mini-hero__title">Project Gallery</h1>
+    </div>
+  </section>
+
+  <div class="page-wrap">
+    <div class="filters" role="tablist" aria-label="Gallery filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="tensile">Tensile</button>
+      <button class="filter-btn" data-filter="awning">Awnings</button>
+      <button class="filter-btn" data-filter="parking">Car Parks</button>
+      <button class="filter-btn" data-filter="shades">Shades</button>
+      <button class="filter-btn" data-filter="gazebo">Gazebo</button>
+    </div>
+
+    <main class="masonry" id="masonry"></main>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lb-backdrop" id="lbBackdrop" aria-hidden="true">
+    <div class="lb-inner" role="dialog" aria-modal="true">
+      <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+      <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+      <img id="lbImg" src="" alt="Expanded image">
+      <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+    </div>
+  </div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919921242901" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+    </a>
+
+  <script src="/main.js"></script>
+
+  <script>
+    const ITEMS = [
+      { src: '/assets/shivkrupa-photos/Car-parking-tensile/car-park-8.jpeg', title: 'Car Park Canopy', tag: 'parking' },
+      { src: '/assets/shivkrupa-photos/Retractable-folding-awning/folding-awning-15.jpeg', title: 'Retractable Awning', tag: 'awning' },
+      { src: '/assets/shivkrupa-photos/Conical-tensile/conical-t-12.jpeg', title: 'Entrance Tensile', tag: 'tensile' },
+      { src: '/assets/shivkrupa-photos/Walt-tensile/walt-t-1.jpeg', title: 'Shade Structure', tag: 'tensile' },
+      { src: '/assets/shivkrupa-photos/PEB-parking-t/peb-parking-4.jpeg', title: 'FRP Car Shed', tag: 'parking' },
+      { src: '/assets/shivkrupa-photos/Retractable-folding-awning/folding-awning-21.jpeg', title: 'Motorized Awning', tag: 'awning' },
+      { src: '/assets/shivkrupa-photos/Walt-tensile/walt-t-12.jpeg', title: 'shades', tag: 'shades' },
+      { src: '/assets/shivkrupa-photos/Walt-tensile/walt-t-13.jpeg', title: 'shades', tag: 'shades' },
+      { src: '/assets/shivkrupa-photos/Two-way-parking/two-way-parking-1.jpeg', title: 'Car Park Canopy', tag: 'parking' },
+      { src: '/assets/shivkrupa-photos/Retractable-folding-awning/folding-awning-20.jpeg', title: 'Retractable Awning', tag: 'awning' },
+      { src: '/assets/shivkrupa-photos/Conical-tensile/conical-t-12.jpeg', title: 'Entrance Tensile', tag: 'tensile' },
+      { src: '/assets/shivkrupa-photos/Walt-tensile/walt-t-4.jpeg', title: 'Shade Structure', tag: 'tensile' },
+      { src: '/assets/shivkrupa-photos/Car-parking-tensile/car-park-4.jpeg', title: 'FRP Car Shed', tag: 'parking' },
+      { src: '/assets/shivkrupa-photos/Fix-frame-Awaning-&-Canopy/fix-awaning-6.jpeg', title: 'Motorized Awning', tag: 'awning' },
+      { src: '/assets/shivkrupa-photos/Walt-tensile/walt-t-1.jpeg', title: 'shades', tag: 'shades' },
+      { src: '/assets/shivkrupa-photos/Walt-tensile/walt-t-8.jpeg', title: 'shades', tag: 'shades' },
+      { src: '/assets/shivkrupa-photos/Gazebo-t/gazebo-t-1.jpeg', title: 'Gazebo Tensile', tag: 'gazebo' },
+      // duplicate sets as in your original, if you want more items:
+      // ...
+    ];
+
+       (function () {
+            const navToggle = document.getElementById('navToggle');
+            const mainNav = document.getElementById('mainNav'); // ul.nav-menu
+            if (!navToggle || !mainNav) return;
+
+            // config
+            const MOBILE_BREAK = 992; // px
+            let docClickInstalled = false;
+            let resizeTimer = null;
+
+            // initial ARIA
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggle.setAttribute('aria-controls', 'mainNav');
+
+            // helper: get li elements only
+            function getNavItems() {
+                return Array.from(mainNav.children).filter(n => n.nodeType === 1 && (n.tagName === 'LI' || n.matches('li')));
+            }
+
+            // apply per-item delays for nice stagger
+            function applyStagger() {
+                const items = getNavItems();
+                items.forEach((li, i) => {
+                    const delay = 60 + i * 60; // tweak: base + step
+                    li.style.setProperty('--delay', delay + 'ms');
+                });
+            }
+
+            function clearStagger() {
+                getNavItems().forEach(li => li.style.removeProperty('--delay'));
+            }
+
+            // set aria-hidden for nav when closed on mobile (helps screenreaders)
+            function setNavHidden(hidden) {
+                mainNav.setAttribute('aria-hidden', String(hidden));
+            }
+
+            // open/close
+            function openMenu() {
+                // only on mobile widths
+                if (window.innerWidth > MOBILE_BREAK) return;
+                applyStagger();
+                // ensure CSS sees the delay before we add open
+                requestAnimationFrame(() => {
+                    mainNav.classList.add('open');
+                    setNavHidden(false);
+                    navToggle.setAttribute('aria-expanded', 'true');
+
+                    // focus first link for keyboard users (don't scroll)
+                    const firstLink = mainNav.querySelector('a, button, [tabindex="0"]');
+                    if (firstLink) firstLink.focus({ preventScroll: true });
+                });
+
+                // install doc click once
+                if (!docClickInstalled) {
+                    document.addEventListener('click', onDocClick);
+                    docClickInstalled = true;
+                }
+                document.addEventListener('keydown', onKeyDown);
+            }
+
+            function closeMenu({ returnFocus = true } = {}) {
+                mainNav.classList.remove('open');
+                setNavHidden(true);
+                navToggle.setAttribute('aria-expanded', 'false');
+                clearStagger();
+
+                document.removeEventListener('keydown', onKeyDown);
+                if (docClickInstalled) {
+                    document.removeEventListener('click', onDocClick);
+                    docClickInstalled = false;
+                }
+
+                // optional return focus to toggle
+                if (returnFocus) {
+                    navToggle.focus({ preventScroll: true });
+                }
+            }
+
+            function toggleMenu() {
+                if (mainNav.classList.contains('open')) closeMenu();
+                else openMenu();
+            }
+
+            // event handlers
+            function onKeyDown(e) {
+                if (e.key === 'Escape') closeMenu();
+            }
+
+            function onDocClick(e) {
+                // close only if click outside both nav and toggle
+                if (!mainNav.contains(e.target) && !navToggle.contains(e.target)) {
+                    closeMenu();
+                }
+            }
+
+            // wire toggle button
+            navToggle.addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                toggleMenu();
+            });
+
+            navToggle.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter' || ev.key === ' ') {
+                    ev.preventDefault();
+                    navToggle.click();
+                }
+            });
+
+            // close when any nav link clicked (mobile). Use capture to catch dynamic links too.
+            mainNav.addEventListener('click', (ev) => {
+                const a = ev.target.closest('a');
+                if (!a) return;
+                // Only close automatically on mobile - desktop usually keeps nav visible.
+                if (window.innerWidth <= MOBILE_BREAK) {
+                    // allow navigation to happen, but close the menu quickly
+                    setTimeout(() => closeMenu({ returnFocus: false }), 220);
+                }
+            }, true);
+
+            // handle window resize: debounce and reset state when crossing breakpoint
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    const isMobile = window.innerWidth <= MOBILE_BREAK;
+                    // if moved to desktop, ensure menu is closed and cleaned
+                    if (!isMobile && mainNav.classList.contains('open')) {
+                        closeMenu();
+                    }
+                    // if moved to mobile and some ARIA missing, ensure hidden state is correct
+                    if (isMobile && !mainNav.classList.contains('open')) {
+                        setNavHidden(true);
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        clearStagger();
+                    }
+                    // also remove any inline --delay if switching contexts
+                    if (!isMobile) clearStagger();
+                }, 120);
+            });
+
+            // initial setup: set aria-hidden based on starting width
+            if (window.innerWidth <= MOBILE_BREAK) {
+                setNavHidden(true);
+            } else {
+                setNavHidden(false);
+                // ensure mobile-specific classes cleared on desktop load
+                mainNav.classList.remove('open');
+                clearStagger();
+            }
+
+        })();
+
+        
+    const masonry = document.getElementById('masonry');
+
+    function createTile(item, idx) {
+      const el = document.createElement('article');
+      el.className = 'masonry-item';
+      el.tabIndex = 0;
+      el.dataset.tag = item.tag;
+      el.dataset.idx = idx;
+
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.alt = item.title;
+      img.loading = 'lazy';
+      el.appendChild(img);
+
+      const caption = document.createElement('div');
+      caption.className = 'tile-caption';
+      caption.innerHTML = `<div class="meta">${item.title}</div><div class="tile-badge">${item.tag}</div>`;
+      el.appendChild(caption);
+
+      el.addEventListener('click', () => openLightbox(idx));
+      el.addEventListener('keydown', (e) => { if (e.key === 'Enter') openLightbox(idx); });
+
+      return el;
+    }
+
+    function render(items) {
+      masonry.innerHTML = '';
+      items.forEach((it, i) => masonry.appendChild(createTile(it, i)));
+    }
+
+    render(ITEMS);
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        if (f === 'all') render(ITEMS);
+        else render(ITEMS.filter(it => it.tag === f));
+      });
+    });
+
+    // LIGHTBOX
+    const lbBackdrop = document.getElementById('lbBackdrop');
+    const lbImg = document.getElementById('lbImg');
+    const lbClose = document.getElementById('lbClose');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+    let current = 0;
+
+    function openLightbox(i) {
+      current = i;
+      lbImg.src = ITEMS[current].src;
+      lbBackdrop.classList.add('active');
+      lbBackdrop.setAttribute('aria-hidden', 'false');
+      lbClose.focus();
+    }
+    function closeLightbox() {
+      lbBackdrop.classList.remove('active');
+      lbBackdrop.setAttribute('aria-hidden', 'true');
+    }
+    function showPrev() {
+      current = (current - 1 + ITEMS.length) % ITEMS.length;
+      lbImg.src = ITEMS[current].src;
+    }
+    function showNext() {
+      current = (current + 1) % ITEMS.length;
+      lbImg.src = ITEMS[current].src;
+    }
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', showPrev);
+    lbNext.addEventListener('click', showNext);
+    lbBackdrop.addEventListener('click', (e) => { if (e.target === lbBackdrop) closeLightbox(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (lbBackdrop.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showPrev();
+        if (e.key === 'ArrowRight') showNext();
+      }
+    });
+  </script>
+</body>
+
+</html>

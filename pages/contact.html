@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shivkrupa — Contact</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Poppins:wght@300;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+
+  <style>
+    :root {
+      --bg: #f6f9fb;
+      --card-bg: #fff;
+      --accent: #0d47a1;
+      /* deep blue */
+      --accent-2: #0d3ba1;
+      --gold: #f2b300;
+      --muted: #6b7280;
+      --radius: 14px;
+      --shadow-lg: 0 16px 48px rgba(10, 20, 40, 0.10);
+      --shadow-sm: 0 8px 18px rgba(10, 20, 40, 0.06);
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: var(--bg);
+      color: #062033;
+      -webkit-font-smoothing: antialiased;
+    }
+
+
+    /* HERO */
+    .mini-hero {
+      padding: 28px 0 8px;
+      background: transparent;
+      text-align: center;
+    }
+
+    .mini-hero__title {
+      font-family: "Merriweather", serif;
+      font-size: 2rem;
+      margin: 6px 0;
+    }
+
+    /* page container */
+    .contact-wrap {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px 36px;
+      box-sizing: border-box;
+    }
+
+    /* grid layout */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* LEFT: form container */
+    .contact-left {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.99));
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .kicker {
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: .78rem;
+      margin-bottom: 8px;
+    }
+
+    .contact-title {
+      font-family: "Merriweather", serif;
+      font-size: 1.6rem;
+      margin: 6px 0 12px;
+      color: var(--accent-2);
+    }
+
+    .lead {
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .meta-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      background: transparent;
+      border: 1px solid rgba(10, 20, 40, 0.04);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      color: var(--accent-2);
+    }
+
+    /* form layout */
+    form .row.g-3>.col-6 {
+      display: block;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width:720px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-control {
+      border-radius: 10px;
+      border: 1px solid rgba(10, 20, 30, 0.08);
+      padding: 12px 14px;
+      box-shadow: none;
+      font-size: 0.96rem;
+    }
+
+    .form-control:focus {
+      outline: none;
+      box-shadow: 0 0 0 5px rgba(13, 71, 161, 0.08);
+      border-color: var(--accent-2);
+    }
+
+    .btn-send {
+      background: #e3e3e4cd;
+      color: #120457;
+      border: 0;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 800;
+      box-shadow: 0 18px 48px rgba(13, 71, 161, 0.12);
+      cursor: pointer;
+    }
+
+    .btn-send:hover {
+      transform: translateY(-3px);
+      background: #fbc513;
+      color: #ffffff;
+    }
+
+    .btn-ghost {
+            background: #33aefa;
+      border: 1px solid rgba(10, 20, 40, 0.06);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-ghost:hover {
+       background: #fab833 ;
+      color: white;
+
+    }
+
+    /* RIGHT: big blue info card */
+    .contact-card {
+      background: linear-gradient(180deg, #79a7eb 0%, #061b8f 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+      position: sticky;
+      top: 20px;
+      height: max-content;
+
+    }
+
+    @media (max-width:980px) {
+      .contact-card {
+        position: static;
+      }
+    }
+
+    .card-kicker {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .contact-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 8px 22px rgba(3, 8, 28, 0.14);
+      flex-shrink: 0;
+    }
+
+    .contact-item h5 {
+      margin: 0 0 6px;
+      font-size: 0.98rem;
+      color: #fff;
+    }
+
+    .contact-item p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.92);
+      /* font-weight: 600; */
+      line-height: 1.5;
+    }
+
+    .contact-small {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.95rem;
+    }
+
+    /* map below */
+    .map-wrap {
+      margin-top: 32px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(10, 20, 40, 0.04);
+    }
+
+    .map-iframe {
+      width: 100%;
+      min-height: 360px;
+      border: 0;
+      display: block;
+    }
+
+    /* responsive smaller map on mobile */
+    @media (max-width:520px) {
+      .map-iframe {
+        min-height: 260px;
+      }
+    }
+
+    /* animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .fade-up.in-view {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* focus outlines */
+    button:focus,
+    a:focus,
+    input:focus,
+    textarea:focus {
+      outline: 3px solid rgba(15, 120, 210, 0.10);
+      outline-offset: 4px;
+      border-radius: 10px;
+    }
+
+    /* small helper */
+    .muted-small {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="clean-navbar">
+    <div class="nav-container">
+
+      <!-- Logo -->
+      <div class="nav-left">
+        <a href="/index.html"><img src="/assets/logo.png" alt="Logo" class="logo"></a>
+      </div>
+
+      <!-- Toggle Button (Mobile) -->
+      <button class="nav-toggle" id="navToggle" aria-label="Open Menu">
+        ☰
+      </button>
+
+      <!-- Center Menu -->
+      <ul class="nav-menu" id="mainNav">
+        <li><a href="/index.html" class="active">Home</a></li>
+        <li><a href="./about.html">About Us</a></li>
+        <li><a href="./product.html">Product</a></li>
+        <li><a href="./gallery.html">Gallery</a></li>
+      </ul>
+
+      <!-- Right Gradient Section -->
+      <div class="nav-right">
+        <a href="contact.html" class="signin-btn">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- small hero for About page -->
+  <section class="mini-hero mini-hero--about" aria-labelledby="about-hero-title" role="banner">
+    <!-- <div class="mini-hero__bg" aria-hidden="true"> </div> -->
+    <img src="/assets/hero-img/contact-bg.png" class="mini-hero__bg" style="width: 100%" />
+    <div class="mini-hero__inner container">
+      <h1 id="about-hero-title" class="mini-hero__title">Contact Us</h1>
+    </div>
+  </section>
+
+  <!-- PAGE -->
+  <div class="contact-wrap">
+    <div class="contact-grid">
+
+      <!-- LEFT: form + info -->
+      <section class="contact-left fade-up" id="leftCol" aria-labelledby="leftTitle">
+        <div class="kicker">Get a free site visit</div>
+        <h2 id="leftTitle" class="contact-title">Send us your project details</h2>
+        <p class="lead">Tell us about the project — site size, type of shade and any images. We’ll respond within 24
+          hours.</p>
+
+        <div class="meta-pills" aria-hidden="true">
+          <div class="pill">Since 2011</div>
+          <div class="pill">Pune, Maharashtra</div>
+          <div class="pill">Quality Assured</div>
+        </div>
+
+        <!-- Form -->
+        <form id="contactForm" onsubmit="return submitForm(event)" novalidate>
+          <div class="form-grid" role="group" aria-label="Contact form">
+            <div>
+              <label for="firstName" class="form-label small">First name</label>
+              <input id="firstName" name="firstName" class="form-control" type="text" placeholder="First Name" required>
+            </div>
+
+            <div>
+              <label for="lastName" class="form-label small">Last name</label>
+              <input id="lastName" name="lastName" class="form-control" type="text" placeholder="Last Name">
+            </div>
+
+            <div>
+              <label for="email" class="form-label small">Email address</label>
+              <input id="email" name="email" class="form-control" type="email" placeholder="email@example.com" required>
+            </div>
+
+            <div>
+              <label for="phone" class="form-label small">Phone</label>
+              <input id="phone" name="phone" class="form-control" type="tel" placeholder="+91 98xxxxxxx" required>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;">
+            <label for="subject" class="form-label small">Subject</label>
+            <input id="subject" name="subject" class="form-control" placeholder="e.g. Car parking shade for society">
+          </div>
+
+          <div style="margin-top:14px;">
+            <label for="message" class="form-label small">Message</label>
+            <textarea id="message" name="message" class="form-control" rows="6"
+              placeholder="Write a message... (site size, pictures, timeline)"></textarea>
+          </div>
+
+          <div style="display:flex; gap:12px; margin-top:18px; align-items:center;">
+            <button type="submit" class="btn-send" aria-label="Send message">Send Message</button>
+            <button type="button" class="btn-ghost" onclick="requestCallback()" aria-label="Request callback">Request
+              Callback</button>
+          </div>
+
+          <div class="muted-small">By sending you agree to our <a href="#" style="color:var(--accent-2);">privacy
+              policy</a>.</div>
+        </form>
+
+      </section>
+
+      <!-- RIGHT: contact info card -->
+      <aside class="contact-card fade-up" aria-labelledby="contactCardTitle">
+        <div>
+          <div id="contactCardTitle" class="card-kicker">Hours:</div>
+          <div class="contact-item" style="margin-top:6px;">
+            <div class="contact-icon" aria-hidden>⏰</div>
+            <div>
+              <h5 class="contact-small">Working hours</h5>
+              <p>Monday – Friday: <strong>8 AM – 5:30 PM</strong><br>Saturday – Sunday: <strong>Closed</strong></p>
+            </div>
+          </div>
+
+          <div style="height:8px;"></div>
+
+          <div class="card-kicker">Call Us:</div>
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden>📞</div>
+            <div>
+              <h5 class="contact-small">Phone</h5>
+              <p><a href="tel:+911234567890" style="color:inherit; text-decoration:underline;">9921242901</a><br>9881099003</p>
+            </div>
+          </div>
+
+          <div style="height:8px;"></div>
+
+          <div class="card-kicker">Location:</div>
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden>📍</div>
+            <div>
+              <h5 class="contact-small">Address</h5>
+              <p>S. No. 33, Near Yuraj Castel, Cannel Road, Dattanagar, Warje, Pune-58, Maharashtra</p>
+            </div>
+          </div>
+
+          <div style="margin-top:18px;">
+            <a class="btn-send" href="/contact.html#map" style="display:inline-block; text-decoration:none;">Get
+              Directions</a>
+            <button class="btn-ghost" style="margin-left:10px;" onclick="startWhatsApp()">WhatsApp</button>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+      <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919921242901" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+    </a>
+
+    <!-- MAP -->
+    <div class="map-wrap fade-up" id="map" style="margin-top:28px;">
+      <!-- Replace the src with your Google Maps 'Embed a map' iframe src for exact pin -->
+      <iframe class="map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=S.+No.+33,+Near+Yuraj+Castel,+Warje,+Pune,+India&output=embed">
+      </iframe>
+    </div>
+
+  </div>
+
+  <script>
+
+       (function () {
+            const navToggle = document.getElementById('navToggle');
+            const mainNav = document.getElementById('mainNav'); // ul.nav-menu
+            if (!navToggle || !mainNav) return;
+
+            // config
+            const MOBILE_BREAK = 992; // px
+            let docClickInstalled = false;
+            let resizeTimer = null;
+
+            // initial ARIA
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggle.setAttribute('aria-controls', 'mainNav');
+
+            // helper: get li elements only
+            function getNavItems() {
+                return Array.from(mainNav.children).filter(n => n.nodeType === 1 && (n.tagName === 'LI' || n.matches('li')));
+            }
+
+            // apply per-item delays for nice stagger
+            function applyStagger() {
+                const items = getNavItems();
+                items.forEach((li, i) => {
+                    const delay = 60 + i * 60; // tweak: base + step
+                    li.style.setProperty('--delay', delay + 'ms');
+                });
+            }
+
+            function clearStagger() {
+                getNavItems().forEach(li => li.style.removeProperty('--delay'));
+            }
+
+            // set aria-hidden for nav when closed on mobile (helps screenreaders)
+            function setNavHidden(hidden) {
+                mainNav.setAttribute('aria-hidden', String(hidden));
+            }
+
+            // open/close
+            function openMenu() {
+                // only on mobile widths
+                if (window.innerWidth > MOBILE_BREAK) return;
+                applyStagger();
+                // ensure CSS sees the delay before we add open
+                requestAnimationFrame(() => {
+                    mainNav.classList.add('open');
+                    setNavHidden(false);
+                    navToggle.setAttribute('aria-expanded', 'true');
+
+                    // focus first link for keyboard users (don't scroll)
+                    const firstLink = mainNav.querySelector('a, button, [tabindex="0"]');
+                    if (firstLink) firstLink.focus({ preventScroll: true });
+                });
+
+                // install doc click once
+                if (!docClickInstalled) {
+                    document.addEventListener('click', onDocClick);
+                    docClickInstalled = true;
+                }
+                document.addEventListener('keydown', onKeyDown);
+            }
+
+            function closeMenu({ returnFocus = true } = {}) {
+                mainNav.classList.remove('open');
+                setNavHidden(true);
+                navToggle.setAttribute('aria-expanded', 'false');
+                clearStagger();
+
+                document.removeEventListener('keydown', onKeyDown);
+                if (docClickInstalled) {
+                    document.removeEventListener('click', onDocClick);
+                    docClickInstalled = false;
+                }
+
+                // optional return focus to toggle
+                if (returnFocus) {
+                    navToggle.focus({ preventScroll: true });
+                }
+            }
+
+            function toggleMenu() {
+                if (mainNav.classList.contains('open')) closeMenu();
+                else openMenu();
+            }
+
+            // event handlers
+            function onKeyDown(e) {
+                if (e.key === 'Escape') closeMenu();
+            }
+
+            function onDocClick(e) {
+                // close only if click outside both nav and toggle
+                if (!mainNav.contains(e.target) && !navToggle.contains(e.target)) {
+                    closeMenu();
+                }
+            }
+
+            // wire toggle button
+            navToggle.addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                toggleMenu();
+            });
+
+            navToggle.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter' || ev.key === ' ') {
+                    ev.preventDefault();
+                    navToggle.click();
+                }
+            });
+
+            // close when any nav link clicked (mobile). Use capture to catch dynamic links too.
+            mainNav.addEventListener('click', (ev) => {
+                const a = ev.target.closest('a');
+                if (!a) return;
+                // Only close automatically on mobile - desktop usually keeps nav visible.
+                if (window.innerWidth <= MOBILE_BREAK) {
+                    // allow navigation to happen, but close the menu quickly
+                    setTimeout(() => closeMenu({ returnFocus: false }), 220);
+                }
+            }, true);
+
+            // handle window resize: debounce and reset state when crossing breakpoint
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    const isMobile = window.innerWidth <= MOBILE_BREAK;
+                    // if moved to desktop, ensure menu is closed and cleaned
+                    if (!isMobile && mainNav.classList.contains('open')) {
+                        closeMenu();
+                    }
+                    // if moved to mobile and some ARIA missing, ensure hidden state is correct
+                    if (isMobile && !mainNav.classList.contains('open')) {
+                        setNavHidden(true);
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        clearStagger();
+                    }
+                    // also remove any inline --delay if switching contexts
+                    if (!isMobile) clearStagger();
+                }, 120);
+            });
+
+            // initial setup: set aria-hidden based on starting width
+            if (window.innerWidth <= MOBILE_BREAK) {
+                setNavHidden(true);
+            } else {
+                setNavHidden(false);
+                // ensure mobile-specific classes cleared on desktop load
+                mainNav.classList.remove('open');
+                clearStagger();
+            }
+
+        })();
+
+        
+    // entrance animation
+    // entrance animation + prefill subject from ?interest=
+    document.addEventListener('DOMContentLoaded', () => {
+      // existing fade-up animation
+      document.querySelectorAll('.fade-up').forEach((el, i) => {
+        setTimeout(() => el.classList.add('in-view'), 90 * i);
+      });
+
+      // NEW: read interest from URL and prefill subject
+      const params = new URLSearchParams(window.location.search);
+      const interest = params.get('interest');
+
+      if (interest) {
+        const subjectInput = document.getElementById('subject');
+        if (subjectInput) {
+          subjectInput.value = interest;                       // set subject
+          subjectInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          subjectInput.focus();                                // focus for user
+        }
+
+        // optional: also prefill message a bit
+        const messageInput = document.getElementById('message');
+        if (messageInput && !messageInput.value) {
+          messageInput.value = `I am interested in: ${interest}\nPlease share more details and pricing.`;
+        }
+      }
+    });
+
+
+    // simple nav toggle (mobile)
+    (function () {
+      const navToggle = document.getElementById('navToggle');
+      navToggle?.addEventListener('click', () => {
+        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', String(!expanded));
+        alert('Menu toggle (demo). Replace with real nav behavior.');
+      });
+    })();
+
+    // simple demo submission (replace with real backend)
+    function submitForm(e) {
+      e.preventDefault();
+      const form = e.target;
+      const firstName = document.getElementById('firstName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!firstName || (!email && !phone)) {
+        alert('Please add your name and at least one contact (email or phone).');
+        return false;
+      }
+
+      // demo: you should POST to your backend endpoint here
+      alert('Thanks — your enquiry has been received. We will contact you shortly. (demo)');
+      form.reset();
+      return false;
+    }
+
+    function requestCallback() {
+      const phone = document.getElementById('phone').value.trim();
+      if (!phone) {
+        alert('Please provide your phone number for callback.');
+        return;
+      }
+      alert('Callback request received. We will contact you soon. (demo)');
+    }
+
+    function startWhatsApp() {
+      // open whatsapp web with prefilled message (update number)
+      const num = '+919876543210';
+      const text = encodeURIComponent('Hello Shivkrupa, I am interested in a shade project. Please contact me.');
+      window.open(`https://wa.me/${num.replace(/\D/g, '')}?text=${text}`, '_blank');
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1217 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Shivkrupa — Products (Awnings)</title>
+
+    <!-- Google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap (optional; used for grid only) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        :root {
+            --bg-dark: #0b1220;
+            --accent-gold: #ecd332;
+            --accent-gold-2: #fbd382;
+            --card-radius: 16px;
+            --muted: #596376;
+            --ink: #0a2133;
+            --glass: rgba(255, 255, 255, 0.06);
+            --transition: 220ms cubic-bezier(.2, .9, .25, 1);
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+            color: var(--ink);
+            background: #fbfcfd;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ---------- Top category nav ---------- */
+        .top-category-nav {
+            background-color: #1a085e;
+            padding: 18px 12px;
+            position: sticky;
+            top: 0;
+            z-index: 120;
+        }
+
+        .cat-scroll {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+            padding: 6px;
+            scrollbar-width: none;
+        }
+
+        .cat-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-pill {
+            flex: 0 0 auto;
+            border-radius: 40px;
+            padding: 10px 22px;
+            background: rgba(255, 255, 255, 0.04);
+            color: #cbd6ea;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+            box-shadow: none;
+        }
+
+        .cat-pill:focus {
+            outline: 3px solid rgba(242, 179, 0, 0.12);
+            outline-offset: 4px;
+        }
+
+        .cat-pill:hover {
+            transform: translateY(-3px);
+        }
+
+        .cat-pill.active {
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-2));
+            color: #081018;
+            box-shadow: 0 18px 48px rgba(229, 149, 0, 0.22), 0 2px 6px rgba(0, 0, 0, 0.12);
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        /* ---------- Hero (category title + sub-tabs) ---------- */
+        .product-hero {
+            text-align: center;
+            padding: 40px 12px 10px;
+            background: linear-gradient(180deg, rgba(250, 248, 246, 1), rgba(248, 249, 252, 1));
+            border-bottom: 1px solid rgba(10, 20, 30, 0.03);
+        }
+
+        .hero-title {
+            font-family: "Merriweather", serif;
+            color: var(--accent-gold);
+            font-size: clamp(1.6rem, 3.8vw, 2.6rem);
+            margin: 0 0 14px;
+            letter-spacing: .01em;
+            text-shadow: 0 8px 20px rgba(2, 8, 20, 0.08);
+        }
+
+        .sub-tabs {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .sub-pill {
+            background: #fff;
+            padding: 8px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(14, 28, 48, 0.06);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition);
+            color: #122335;
+        }
+
+        .sub-pill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(6, 12, 24, 0.06);
+        }
+
+        .sub-pill:focus {
+            outline: 3px solid rgba(90, 46, 232, 0.12);
+            outline-offset: 4px;
+        }
+
+        .sub-pill.active {
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-2));
+            color: #081018;
+            box-shadow: 0 18px 40px rgba(230, 145, 0, 0.18);
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        /* ---------- Product detail grid ---------- */
+        .product-detail {
+            max-width: 1200px;
+            margin: 34px auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 42px;
+            align-items: center;
+            transition: all 360ms ease;
+        }
+
+        .p-img {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .p-img img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 30px 80px rgba(6, 12, 24, 0.10);
+            transition: transform 520ms cubic-bezier(.2, .9, .25, 1), filter 320ms;
+            transform-origin: center;
+            border: 6px solid rgba(255, 255, 255, 0.6);
+            background: linear-gradient(180deg, #fff, #fafafa);
+        }
+
+        /* subtle hover scale on desktop */
+        @media (hover:hover) {
+            .p-img img:hover {
+                transform: scale(1.02) translateY(-4px);
+                filter: brightness(1.02);
+            }
+        }
+
+        .p-info h2 {
+            font-family: "Merriweather", serif;
+            font-size: clamp(1.25rem, 2.4vw, 1.9rem);
+            margin: 0 0 12px;
+            color: #0b2133;
+        }
+
+        .p-info p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 0 0 22px;
+            font-size: 0.98rem;
+        }
+
+        .p-meta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .badge-soft {
+            background: linear-gradient(180deg, rgba(13, 110, 253, 0.06), rgba(111, 60, 255, 0.03));
+            color: #0b2340;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            box-shadow: inset 0 -6px 14px rgba(111, 60, 255, 0.02);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-2));
+            color: #071018;
+            padding: 12px 22px;
+            border-radius: 40px;
+            border: none;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 20px 54px rgba(226, 147, 16, 0.16);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 28px 76px rgba(226, 147, 16, 0.20);
+        }
+
+        /* small animation for content swap */
+        .fade-in {
+            animation: fadeInUp 420ms ease both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ------------------ NEW: Related products (added) ------------------ */
+        .related-wrap {
+            max-width: 1200px;
+            margin: 28px auto 80px;
+            padding: 20px;
+        }
+
+        .related-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .related-title {
+            font-family: "Merriweather", serif;
+            color: #11a0b8;
+            font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+            margin: 0;
+            letter-spacing: .02em;
+        }
+
+        .related-sub {
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .related-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .related-card {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            background: linear-gradient(180deg, #f6f7fb, #ffffff);
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: 0 12px 30px rgba(6, 12, 24, 0.06);
+            border: 1px solid rgba(10, 20, 30, 0.04);
+            transition: transform var(--transition), box-shadow var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .related-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 26px 70px rgba(6, 12, 24, 0.12);
+        }
+
+        .related-thumb {
+            width: 200px;
+            flex: 0 0 200px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .related-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .related-body h4 {
+            margin: 0 0 8px;
+            font-size: 1.05rem;
+            color: #0b2340;
+            font-weight: 800;
+        }
+
+        .related-body p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .related-action {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            border: 2px solid rgba(17, 160, 184, 0.12);
+            background: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #0b2340;
+            box-shadow: 0 8px 16px rgba(2, 8, 20, 0.06);
+        }
+
+        /* new view button */
+        .view-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, rgba(17,160,184,0.08), rgba(17,160,184,0.06));
+            border: 1px solid rgba(17,160,184,0.16);
+            color: #0b2340;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+        }
+
+        .view-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(2, 8, 20, 0.08);
+        }
+
+        /* ---------------- RESPONSIVE ADJUSTMENTS ---------------- */
+        /* tablets and smaller: stack product-detail and tighten spacing */
+        @media (max-width: 992px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 22px;
+                margin-top: 18px;
+                padding: 0 14px;
+            }
+            .p-img img {
+                height: 360px;
+            }
+            .related-wrap {
+                padding: 14px;
+            }
+            .related-title {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* related list single column and cards stacked */
+        @media (max-width: 900px) {
+            .related-list {
+                grid-template-columns: 1fr;
+            }
+
+            .related-card {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 12px;
+            }
+
+            .related-thumb {
+                width: 100%;
+                height: 180px;
+                flex: 0 0 auto;
+                border-radius: 10px;
+                margin-bottom: 12px;
+            }
+
+            .related-body h4 {
+                font-size: 1.06rem;
+            }
+
+            .related-action {
+                position: static;
+                margin-left: auto;
+                margin-top: 8px;
+                width: auto;
+                height: auto;
+                padding: 6px 8px;
+                border-radius: 8px;
+                border: 0;
+                box-shadow: none;
+                background: transparent;
+                color: var(--muted);
+            }
+
+            .view-btn {
+                align-self: flex-start;
+            }
+        }
+
+        /* phones: tighter sizes */
+        @media (max-width: 520px) {
+            .hero-title {
+                font-size: 1.6rem;
+            }
+
+            .p-img img {
+                height: 220px;
+                border-radius: 12px;
+            }
+
+            .related-thumb {
+                height: 160px;
+            }
+
+            .view-btn {
+                padding: 8px 10px;
+                font-size: 0.95rem;
+            }
+
+            .cat-pill {
+                padding: 8px 14px;
+                font-size: 0.95rem;
+            }
+
+            .sub-pill {
+                padding: 6px 12px;
+                font-size: 0.92rem;
+            }
+
+            .related-wrap {
+                margin-bottom: 48px;
+            }
+        }
+
+        /* Accessibility focus */
+        button:focus {
+            outline: 3px solid rgba(90, 46, 232, 0.14);
+            outline-offset: 3px;
+            border-radius: 999px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Minimal nav for testing -->
+    <nav class="clean-navbar">
+        <div class="nav-container">
+
+            <!-- Logo -->
+            <div class="nav-left">
+                <a href="index.html"><img src="/assets/logo.png" alt="Logo" class="logo"></a>
+            </div>
+
+            <!-- Toggle Button (Mobile) -->
+            <button class="nav-toggle" id="navToggle" aria-label="Open Menu">
+                ☰
+            </button>
+
+            <!-- Center Menu -->
+            <ul class="nav-menu" id="mainNav">
+                <li><a href="/index.html" class="active">Home</a></li>
+                <li><a href="./about.html">About Us</a></li>
+                <li><a href="./product.html">Product</a></li>
+                <li><a href="./gallery.html">Gallery</a></li>
+            </ul>
+
+            <!-- Right Gradient Section -->
+            <div class="nav-right">
+                <a href="./contact.html" class="signin-btn">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- small hero for About page -->
+    <section class="mini-hero mini-hero--about" aria-labelledby="about-hero-title" role="banner">
+        <img src="/assets/hero-img/product-bg.png" class="mini-hero__bg" style="width: 100%" />
+
+        <div class="mini-hero__inner container">
+            <h1 id="about-hero-title" class="mini-hero__title"> Our Products</h1>
+        </div>
+    </section>
+
+    <!-- TOP CATEGORY BAR -->
+    <header class="top-category-nav" role="navigation" aria-label="Main product categories">
+        <div class="cat-scroll" role="tablist" aria-label="Product categories">
+            <button class="cat-pill" data-main="tensile" role="tab" aria-selected="false">Tensile Structures</button>
+            <button class="cat-pill active" data-main="awnings" role="tab" aria-selected="true">Awnings</button>
+            <button class="cat-pill" data-main="parking" role="tab" aria-selected="false">Car Parking</button>
+            <button class="cat-pill" data-main="sheds" role="tab" aria-selected="false">Sheds</button>
+            <button class="cat-pill" data-main="canopy" role="tab" aria-selected="false">Canopy</button>
+        </div>
+    </header>
+
+    <!-- HERO with sub-tabs -->
+    <section class="product-hero" aria-labelledby="heroTitle">
+        <h1 id="heroTitle" class="hero-title">Awnings</h1>
+
+        <div class="sub-tabs" role="tablist" aria-label="Awnings subcategories">
+            <button class="sub-pill active" data-sub="retractable" role="tab" aria-selected="true">Retractable
+                Awning</button>
+            <button class="sub-pill" data-sub="fixed" role="tab" aria-selected="false">Fixed Frame Awning</button>
+            <button class="sub-pill" data-sub="drop" role="tab" aria-selected="false">Drop Awning</button>
+        </div>
+    </section>
+
+    <!-- PRODUCT DETAIL -->
+    <main id="productDetail" class="product-detail container" role="main">
+        <div class="p-img" aria-hidden="false">
+            <!-- update paths to your images in /assets -->
+            <img id="pd-img" src="/assets/awning-fixed.jpg" alt="Fixed Frame Awning installed at a property" />
+        </div>
+
+        <div class="p-info">
+            <h2 id="pd-title">Fixed Frame Awning</h2>
+
+            <div class="p-meta" aria-hidden="true">
+                <div class="badge-soft">Durable</div>
+                <div class="badge-soft">UV Protected</div>
+                <div class="badge-soft">Low Maintenance</div>
+            </div>
+
+            <p id="pd-desc">
+                Permanent aluminum structure with high-quality UV-resistant fabric — perfect for shops, windows &
+                entrances.
+                Designed to withstand harsh weather while enhancing curb appeal. Available in multiple fabric colours
+                and
+                custom sizes to match your project.
+            </p>
+
+            <div class="d-flex gap-3 align-items-center">
+                <button id="enquireBtn" class="cta-btn" aria-label="Express interest in Fixed Frame Awning">I'm
+                    Interested</button>
+                <!-- small secondary action (view gallery) -->
+                <button id="galleryBtn" class="sub-pill" aria-label="Open gallery">View Image</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===================== NEW SECTION: Related Products (auto-populated) ===================== -->
+    <section id="relatedProducts" class="related-wrap" aria-label="Related products">
+        <div class="related-header">
+            <div>
+                <h3 id="relatedMainTitle" class="related-title">Related — Awnings</h3>
+                <div id="relatedMainSub" class="related-sub">Subcategories for the current selection</div>
+            </div>
+            <div aria-hidden="true">
+                <!-- optional action or small note -->
+            </div>
+        </div>
+
+        <div id="relatedList" class="related-list" role="list">
+            <!-- populated by JS -->
+        </div>
+    </section>
+
+    <!-- Optional small gallery modal (lightweight) -->
+    <div id="lightbox"
+        style="display:none; position:fixed; inset:0; align-items:center; justify-content:center; background:rgba(2,6,18,0.8); z-index:140;">
+        <div
+            style="max-width:1200px; width:92%; border-radius:12px; overflow:hidden; box-shadow:0 40px 120px rgba(2,8,20,0.6);">
+            <div style="position:relative; padding:12px; background:#fff;">
+                <button id="lbClose"
+                    style="position:absolute; right:12px; top:12px; background:#000;color:#fff;border:0;padding:8px 10px;border-radius:8px;cursor:pointer;">Close</button>
+                <img id="lbImg" src="/assets/awning-fixed.jpg" alt="Gallery image"
+                    style="width:100%; height:520px; object-fit:cover; display:block;">
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919921242901" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+    </a>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-inner container">
+            <div class="footer-col footer-about">
+                <img src="/assets/logo.png" alt="Shivkrupa logo" class="footer-logo">
+                <p class="footer-desc">
+                    Shivkrupa Enterprises — designers & manufacturers of tensile structures, retractable awnings and
+                    car-park sheds.
+                    Quality materials, custom designs and timely installation since 2011.
+                </p>
+
+                <div class="footer-download">
+                    <a href="/mnt/data/e profile  SHIVKRUPA ENTERPRISES.pdf.pdf.pdf" download class="btn-download"
+                        aria-label="Download company profile">
+                        &#128229; Download Company Profile
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-col footer-links" aria-labelledby="footer-links-heading">
+                <h4 id="footer-links-heading">Quick links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="/pages/product.html">Products</a></li>
+                    <li><a href="/pages/gallery.html">Projects</a></li>
+                    <li><a href="/pages/about.html">About us</a></li>
+                    <li><a href="/pages/contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-contact" aria-labelledby="footer-contact-heading">
+                <h4 id="footer-contact-heading">Contact</h4>
+                <address class="contact-meta">
+                    <div><strong>Phone:</strong> <a href="tel:+911234567890">9921242901 | 9881099003</a></div>
+                    <div><strong>Email:</strong> <a href="mailto:info@shivkrupa.com">shivkrupaent2011@gmail.com</a>
+                    </div>
+                    <div><strong>Address:</strong> S. No. 33, Near Yuraj Castel, Cannel Road, Dattanagar, Warje,
+                        Pune-58, Maharashtra</div>
+                </address>
+
+                <div class="socials" aria-label="Social links">
+                    <a href="#" class="social" aria-label="Facebook" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+
+                    <a href="#" class="social" aria-label="Instagram" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                    <a href="#" class="social" aria-label="LinkedIn" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <div class="copyright">© <span id="footer-year"></span> Shivkrupa Enterprises. All rights reserved.
+                </div>
+                <div> Developed By <a href="https://dwi4u.com/" target="_blank" class="footer-dw-page"> DW INNOVATION
+                        PVT.LTD. </a></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap optional JS for other components if you use them -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/main.js"></script>
+
+    <script>
+        // ---------- Data for categories + sub-items ----------
+        const DATA = {
+            tensile: {
+                title: 'Tensile Structures',
+                subs: {
+                    conical: {
+                        title: 'Conical Tensile',
+                        img: '/assets/shivkrupa-photos/Conical-tensile/conical-t-12.jpeg',
+                        desc: 'Signature conical tensile structure designed for plazas, courtyards and open walkways. Provides wide-span shade with minimal columns, excellent water drainage and a very iconic architectural look.'
+                    },
+                    singlePole: {
+                        title: 'Single-pole Tensile',
+                        img: '/assets/shivkrupa-photos/Conical-tensile/conical-t-16.jpeg',
+                        desc: 'Compact single-pole tensile shade ideal for small sit-out areas, café corners and villa entrances. Uses a central mast to maximise covered area while keeping the footprint and steel usage low.'
+                    },
+                    halfRound: {
+                        title: 'Half-Round Tensile',
+                        img: '/assets/shivkrupa-photos/Half-round-t/half-round-3.jpeg',
+                        desc: 'Curved half-round tensile profile that works perfectly for pathways, balcony extensions and semi-covered terraces. Offers smooth rainwater run-off, soft diffused light and a very clean elevation.'
+                    },
+                    moreConical: {
+                        title: '2 & More Conical Tensile',
+                        img: '/assets/shivkrupa-photos/Conical-tensile/conical-t-6.jpeg',
+                        desc: 'Multiple conical modules combined to cover larger spaces such as campuses, food courts and public plazas. Modular design allows future expansion, uniform load distribution and a dramatic visual impact.'
+                    }
+                }
+            },
+
+            awnings: {
+                title: 'Awnings',
+                subs: {
+                    retractable: {
+                        title: 'Retractable Awning',
+                        img: '/assets/shivkrupa-photos/Retractable-folding-awning/folding-awning-2.jpeg',
+                        desc: 'Manual or motorised retractable awning for balconies, shopfronts and terraces. Extends when shade is needed and folds back to open the sky, with high-grade fabric that resists UV, heat and light rain.'
+                    },
+                    fixed: {
+                        title: 'Fixed Frame Awning',
+                        img: '/assets/shivkrupa-photos/Fix-frame-Awaning-&-Canopy/fix-awaning-1.jpeg',
+                        desc: 'Permanent aluminium or MS frame awning with premium coated fabric. Ideal for windows, entrances and storefronts where continuous protection from sun and rain is required with low maintenance.'
+                    },
+                    drop: {
+                        title: 'Drop Awning',
+                        img: '/assets/shivkrupa-photos/Drop-awning/drop-awing-2.jpeg',
+                        desc: 'Vertical drop awning that acts as both shade and privacy screen. Perfect for terraces, glass façades and balcony railings, cutting glare and heat while still allowing light and ventilation.'
+                    }
+                }
+            },
+
+            parking: {
+                title: 'Car Parking',
+                subs: {
+                    carTensile: {
+                        title: 'Car Parking Shed',
+                        img: '/assets/shivkrupa-photos/Car-parking-tensile/car-park-4.jpeg',
+                        desc: 'Robust tensile car parking shed engineered to protect vehicles from harsh sun, UV and rain. Suitable for societies, corporate campuses and commercial complexes with neat column placement for easy movement.'
+                    },
+                    frp: {
+                        title: 'FRP Parking Shed',
+                        img: '/assets/shivkrupa-photos/PEB-parking-t/peb-parking-3.jpeg',
+                        desc: 'Lightweight FRP (fiber-reinforced plastic) parking shed with solid roofing. Offers long-term resistance to rust and leakage, making it a good option for individual bungalows and compact parking bays.'
+                    },
+                    tensileParking: {
+                        title: 'Tensile Parking',
+                        img: '/assets/shivkrupa-photos/Car-parking-tensile/car-park-8.jpeg',
+                        desc: 'Large-span tensile parking solution designed for multiple car bays and driveways. Combines aesthetic curved membranes with strong steel framing for malls, IT parks, showrooms and large housing projects.'
+                    }
+                }
+            },
+
+            sheds: {
+                title: 'Sheds',
+                subs: {
+                    monsoonShade: {
+                        title: 'Monsoon Shade',
+                        img: '/assets/shivkrupa-photos/Monsoon_Shade.jpg',
+                        desc: 'Heavy-duty monsoon shade designed to handle strong rain and wind conditions. Ideal for temporary storage, loading–unloading zones and open terraces that need all-season protection.'
+                    },
+                    awingShade: {
+                        title: 'Awning Shade',
+                        img: '/assets/shivkrupa-photos/Walt-tensile/walt-t-9.jpeg',
+                        desc: 'Compact projection shade used over doors, windows and shopfronts. Helps reduce direct sun and water splash near the opening while improving the front elevation of the building.'
+                    },
+                    sunShade: {
+                        title: 'Sun Shade',
+                        img: '/assets/shivkrupa-photos/Shade-sail-t/shade-sail-2.jpeg',
+                        desc: 'Functional sun control shade for playgrounds, rooftop cafés and open seating areas. Cuts heat and glare significantly while allowing free air circulation under the structure.'
+                    },
+                    fabricShade: {
+                        title: 'Fabric Shade',
+                        img: '/assets/shivkrupa-photos/Shade-sail-t/shade-sail-1.jpeg',
+                        desc: 'Versatile fabric shade solution that can be customised for courtyards, walkways and side setbacks. Uses high-tensile, weather-resistant membrane that is easy to clean and maintain.'
+                    },
+                    foldingShade: {
+                        title: 'Folding Shade',
+                        img: '/assets/shivkrupa-photos/Retractable-folding-awning/folding-awning-8.jpeg',
+                        desc: 'Foldable shade system that can be opened or closed based on season. Perfect for terraces and rooftop restaurants where flexible open-to-sky and covered areas are required.'
+                    }
+                }
+            },
+
+            canopy: {
+                subs: {
+                    entrance: {
+                        title: 'Entrance Canopy',
+                        img: '/assets/shivkrupa-photos/entrance_canopy.jpg',
+                        desc: 'Elegant entrance canopy that highlights the main entry of residences, hotels or commercial buildings. Offers visitors covered access while giving a premium first impression to the façade.'
+                    },
+                    outdoor: {
+                        title: 'Outdoor Canopy',
+                        img: '/assets/shivkrupa-photos/outdoor_canopy.jpg',
+                        desc: 'Multi-purpose outdoor canopy for sit-out zones, café seating and garden events. Provides comfortable shade with customisable shapes, colours and column layouts to suit your site.'
+                    },
+                    gazebo: {
+                        title: 'Gazebo',
+                        img: '/assets/shivkrupa-photos/Gazebo-t/gazebo-t-1.jpeg',
+                        desc: 'Stand-alone gazebo structure that becomes a focal point in gardens, farmhouses and resorts. Designed for relaxation and gatherings with a cosy, semi-open feel and durable roofing.'
+                    },
+                    window: {
+                        title: 'Window Canopy',
+                        img: '/assets/shivkrupa-photos/window_canopy.webp',
+                        desc: 'Slim window canopy to protect openings from direct rain and sun while keeping natural light. Ideal for elevation enhancement on residential and commercial buildings.'
+                    }
+                }
+            }
+        };
+
+
+           (function () {
+            const navToggle = document.getElementById('navToggle');
+            const mainNav = document.getElementById('mainNav'); // ul.nav-menu
+            if (!navToggle || !mainNav) return;
+
+            // config
+            const MOBILE_BREAK = 992; // px
+            let docClickInstalled = false;
+            let resizeTimer = null;
+
+            // initial ARIA
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggle.setAttribute('aria-controls', 'mainNav');
+
+            // helper: get li elements only
+            function getNavItems() {
+                return Array.from(mainNav.children).filter(n => n.nodeType === 1 && (n.tagName === 'LI' || n.matches('li')));
+            }
+
+            // apply per-item delays for nice stagger
+            function applyStagger() {
+                const items = getNavItems();
+                items.forEach((li, i) => {
+                    const delay = 60 + i * 60; // tweak: base + step
+                    li.style.setProperty('--delay', delay + 'ms');
+                });
+            }
+
+            function clearStagger() {
+                getNavItems().forEach(li => li.style.removeProperty('--delay'));
+            }
+
+            // set aria-hidden for nav when closed on mobile (helps screenreaders)
+            function setNavHidden(hidden) {
+                mainNav.setAttribute('aria-hidden', String(hidden));
+            }
+
+            // open/close
+            function openMenu() {
+                // only on mobile widths
+                if (window.innerWidth > MOBILE_BREAK) return;
+                applyStagger();
+                // ensure CSS sees the delay before we add open
+                requestAnimationFrame(() => {
+                    mainNav.classList.add('open');
+                    setNavHidden(false);
+                    navToggle.setAttribute('aria-expanded', 'true');
+
+                    // focus first link for keyboard users (don't scroll)
+                    const firstLink = mainNav.querySelector('a, button, [tabindex="0"]');
+                    if (firstLink) firstLink.focus({ preventScroll: true });
+                });
+
+                // install doc click once
+                if (!docClickInstalled) {
+                    document.addEventListener('click', onDocClick);
+                    docClickInstalled = true;
+                }
+                document.addEventListener('keydown', onKeyDown);
+            }
+
+            function closeMenu({ returnFocus = true } = {}) {
+                mainNav.classList.remove('open');
+                setNavHidden(true);
+                navToggle.setAttribute('aria-expanded', 'false');
+                clearStagger();
+
+                document.removeEventListener('keydown', onKeyDown);
+                if (docClickInstalled) {
+                    document.removeEventListener('click', onDocClick);
+                    docClickInstalled = false;
+                }
+
+                // optional return focus to toggle
+                if (returnFocus) {
+                    navToggle.focus({ preventScroll: true });
+                }
+            }
+
+            function toggleMenu() {
+                if (mainNav.classList.contains('open')) closeMenu();
+                else openMenu();
+            }
+
+            // event handlers
+            function onKeyDown(e) {
+                if (e.key === 'Escape') closeMenu();
+            }
+
+            function onDocClick(e) {
+                // close only if click outside both nav and toggle
+                if (!mainNav.contains(e.target) && !navToggle.contains(e.target)) {
+                    closeMenu();
+                }
+            }
+
+            // wire toggle button
+            navToggle.addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                toggleMenu();
+            });
+
+            navToggle.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter' || ev.key === ' ') {
+                    ev.preventDefault();
+                    navToggle.click();
+                }
+            });
+
+            // close when any nav link clicked (mobile). Use capture to catch dynamic links too.
+            mainNav.addEventListener('click', (ev) => {
+                const a = ev.target.closest('a');
+                if (!a) return;
+                // Only close automatically on mobile - desktop usually keeps nav visible.
+                if (window.innerWidth <= MOBILE_BREAK) {
+                    // allow navigation to happen, but close the menu quickly
+                    setTimeout(() => closeMenu({ returnFocus: false }), 220);
+                }
+            }, true);
+
+            // handle window resize: debounce and reset state when crossing breakpoint
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    const isMobile = window.innerWidth <= MOBILE_BREAK;
+                    // if moved to desktop, ensure menu is closed and cleaned
+                    if (!isMobile && mainNav.classList.contains('open')) {
+                        closeMenu();
+                    }
+                    // if moved to mobile and some ARIA missing, ensure hidden state is correct
+                    if (isMobile && !mainNav.classList.contains('open')) {
+                        setNavHidden(true);
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        clearStagger();
+                    }
+                    // also remove any inline --delay if switching contexts
+                    if (!isMobile) clearStagger();
+                }, 120);
+            });
+
+            // initial setup: set aria-hidden based on starting width
+            if (window.innerWidth <= MOBILE_BREAK) {
+                setNavHidden(true);
+            } else {
+                setNavHidden(false);
+                // ensure mobile-specific classes cleared on desktop load
+                mainNav.classList.remove('open');
+                clearStagger();
+            }
+
+        })();
+
+        // ---------- Helpers ----------
+        function qs(sel, ctx = document) { return ctx.querySelector(sel); }
+        function qsa(sel, ctx = document) { return Array.from(ctx.querySelectorAll(sel)); }
+
+        // initial elements
+        const catPills = qsa('.cat-pill');
+        let subPills = qsa('.sub-pill'); // will be rebuilt dynamically
+        const heroTitle = qs('#heroTitle');
+        const pdImg = qs('#pd-img');
+        const pdTitle = qs('#pd-title');
+        const pdDesc = qs('#pd-desc');
+        const productDetail = qs('#productDetail');
+        const lightbox = qs('#lightbox');
+        const lbImg = qs('#lbImg');
+        const lbClose = qs('#lbClose');
+        const galleryBtn = qs('#galleryBtn');
+
+        // Related elements
+        const relatedMainTitle = qs('#relatedMainTitle');
+        const relatedMainSub = qs('#relatedMainSub');
+        const relatedList = qs('#relatedList');
+
+        // set initial active keys
+        let activeMain = 'awnings';
+        let activeSub = 'fixed';
+
+        // read ?main=&sub= from URL (if present)
+        function applyQueryDefaults() {
+            const params = new URLSearchParams(window.location.search);
+            const qMain = params.get('main');
+            const qSub = params.get('sub');
+
+            if (qMain && DATA[qMain]) {
+                activeMain = qMain;
+                activeSub = ensureActiveSub(qMain, qSub);
+            }
+        }
+
+        // ensure activeSub exists for the activeMain (fallback)
+        function ensureActiveSub(main, maybeSub) {
+            const subs = DATA[main] && DATA[main].subs ? Object.keys(DATA[main].subs) : [];
+            if (subs.length === 0) return null;
+            if (maybeSub && subs.includes(maybeSub)) return maybeSub;
+            return subs[0];
+        }
+
+        // update UI for selected main category
+        function setActiveMain(key) {
+            if (!DATA[key]) return;
+            activeMain = key;
+            // update top pills UI
+            catPills.forEach(p => {
+                const is = p.dataset.main === key;
+                p.classList.toggle('active', is);
+                p.setAttribute('aria-selected', String(is));
+            });
+
+            // update hero title
+            heroTitle.textContent = DATA[key].title || key;
+
+            // rebuild sub-tabs for this main
+            const subs = DATA[key].subs || {};
+            const subTabWrap = qs('.sub-tabs');
+            subTabWrap.innerHTML = ''; // clear
+            Object.keys(subs).forEach((sKey, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'sub-pill';
+                btn.textContent = subs[sKey].title;
+                btn.dataset.sub = sKey;
+                btn.setAttribute('role', 'tab');
+                btn.setAttribute('aria-selected', 'false');
+                btn.addEventListener('click', () => {
+                    setActiveSub(sKey);
+                });
+                btn.addEventListener('keydown', (ev) => {
+                    if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); btn.click(); }
+                });
+                subTabWrap.appendChild(btn);
+            });
+
+            // refresh subPills reference
+            subPills = qsa('.sub-pill');
+
+            // choose active sub (keep previous if available)
+            activeSub = ensureActiveSub(key, activeSub) || Object.keys(subs)[0];
+            subPills.forEach(btn => btn.classList.toggle('active', btn.dataset.sub === activeSub));
+            updateDetail();
+            renderRelated(); // update related list when main changes
+        }
+
+        // update UI for selected sub item
+        function setActiveSub(subKey) {
+            const keys = Object.keys(DATA[activeMain].subs || {});
+            if (!keys.includes(subKey)) return;
+            activeSub = subKey;
+            // update sub pills UI
+            qsa('.sub-pill').forEach(p => {
+                const is = p.dataset.sub === subKey;
+                p.classList.toggle('active', is);
+                p.setAttribute('aria-selected', String(is));
+            });
+            updateDetail();
+            renderRelated(); // refresh related after changing sub so header excludes the active sub
+        }
+
+        // animate & update detail panel with data
+        function updateDetail() {
+            const item = (DATA[activeMain] && DATA[activeMain].subs && DATA[activeMain].subs[activeSub]) || null;
+            if (!item) return;
+            productDetail.classList.remove('fade-in');
+            void productDetail.offsetWidth; // reflow to restart animation
+            pdImg.src = item.img;
+            pdImg.alt = item.title;
+            pdTitle.textContent = item.title;
+            pdDesc.textContent = item.desc;
+            productDetail.classList.add('fade-in');
+            lbImg.src = item.img;
+            lbImg.alt = item.title + " gallery";
+        }
+
+        // ---------- NEW: render related products (title + subtitles) ----------
+        function renderRelated() {
+            const payload = DATA[activeMain];
+            if (!payload) return;
+            relatedMainTitle.textContent = `Related — ${payload.title || activeMain}`;
+
+            // build sub-list excluding currently active sub to avoid repetition in header
+            const subsObj = payload.subs || {};
+            const allKeys = Object.keys(subsObj || {});
+            const subNamesForHeader = allKeys
+                .filter(k => k !== activeSub) // exclude active sub
+                .map(k => subsObj[k].title)
+                .join(' • ');
+            relatedMainSub.textContent = subNamesForHeader || '';
+
+            // build cards: show sub-items excluding the activeSub (so we don't duplicate the main product)
+            relatedList.innerHTML = ''; // clear
+
+            const keys = allKeys.filter(k => k !== activeSub);
+            // show up to 4 related items (adjust as needed)
+            const showKeys = keys.slice(0, 4);
+
+            showKeys.forEach(key => {
+                const item = subsObj[key];
+                const card = document.createElement('article');
+                card.className = 'related-card';
+                card.setAttribute('role', 'listitem');
+
+                const thumb = document.createElement('div');
+                thumb.className = 'related-thumb';
+                const img = document.createElement('img');
+                img.src = item.img;
+                img.alt = item.title;
+                thumb.appendChild(img);
+
+                const body = document.createElement('div');
+                body.className = 'related-body';
+                const h4 = document.createElement('h4');
+                h4.textContent = item.title;
+                const p = document.createElement('p');
+                // subtitle: first 10-12 words of description
+                const words = (item.desc || '').split(/\s+/).slice(0, 12).join(' ');
+                p.textContent = words + ((item.desc || '').split(/\s+/).length > 12 ? '…' : '');
+
+                body.appendChild(h4);
+                body.appendChild(p);
+
+                // view button (explicit action)
+                const viewBtn = document.createElement('button');
+                viewBtn.className = 'view-btn';
+                viewBtn.type = 'button';
+                viewBtn.textContent = 'View';
+                viewBtn.setAttribute('aria-label', `View ${item.title}`);
+                viewBtn.addEventListener('click', (ev) => {
+                    ev.stopPropagation();
+                    // set the main/sub and scroll into view
+                    setActiveSub(key);
+                    // small delay to ensure UI updated before scrolling
+                    setTimeout(() => {
+                        const top = productDetail.getBoundingClientRect().top + window.scrollY - 24;
+                        window.scrollTo({ top, behavior: 'smooth' });
+                    }, 60);
+                });
+
+                // place view button to right (inside a small wrapper)
+                const bodyWrap = document.createElement('div');
+                bodyWrap.style.display = 'flex';
+                bodyWrap.style.flexDirection = 'column';
+                bodyWrap.style.justifyContent = 'space-between';
+                bodyWrap.style.flex = '1';
+                bodyWrap.appendChild(body);
+
+                const btnRow = document.createElement('div');
+                btnRow.style.marginTop = '12px';
+                btnRow.appendChild(viewBtn);
+                bodyWrap.appendChild(btnRow);
+
+                card.appendChild(thumb);
+                card.appendChild(bodyWrap);
+
+                relatedList.appendChild(card);
+            });
+        }
+
+        // ---------- event wiring ----------
+        // category clicks
+        catPills.forEach(p => {
+            p.addEventListener('click', () => {
+                const main = p.dataset.main;
+                setActiveMain(main);
+                setTimeout(() => { qs('.sub-pill')?.focus(); }, 120);
+            });
+            p.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); p.click(); } });
+        });
+
+        // delegate sub clicks (initial set created in HTML for first category)
+        qsa('.sub-pill').forEach(btn => {
+            btn.addEventListener('click', () => setActiveSub(btn.dataset.sub));
+        });
+
+        // gallery open
+        galleryBtn?.addEventListener('click', () => {
+            lightbox.style.display = 'flex';
+            document.addEventListener('keydown', handleEsc);
+        });
+        lbClose?.addEventListener('click', closeLightbox);
+        lightbox?.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+        function handleEsc(ev) {
+            if (ev.key === 'Escape') closeLightbox();
+        }
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.removeEventListener('keydown', handleEsc);
+        }
+
+        // Enquire CTA (simple navigation to contact with interest)
+        qs('#enquireBtn').addEventListener('click', () => {
+            const title = pdTitle.textContent;
+            window.location.href = 'contact.html?interest=' + encodeURIComponent(title);
+        });
+
+        // set footer year
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        // INITIALIZE page with defaults
+        (function init() {
+            applyQueryDefaults();
+            setActiveMain(activeMain);
+            renderRelated();
+        })();
+    </script>
+</body>
+
+</html>
