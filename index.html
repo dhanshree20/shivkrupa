@@ -249,15 +249,23 @@
 
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const brochure = document.querySelector(".brochure-dropdown > a");
+document.addEventListener("DOMContentLoaded", () => {
+    const brochure = document.querySelector(".brochure-dropdown > a");
+    const dropdownParent = document.querySelector(".brochure-dropdown");
 
-            brochure.addEventListener("click", () => {
-                const menu = brochure.nextElementSibling;
-                menu.classList.toggle("show");
-            });
-        });
-    </script>
+    brochure.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const menu = brochure.nextElementSibling;
+
+        dropdownParent.classList.toggle("open");  // 👈 Parent ko stable height
+        menu.classList.toggle("show");
+    });
+});
+</script>
+
+
 
 
     <!-- HERO (fixed markup) -->

@@ -311,6 +311,34 @@ h2 {
     .brochure-menu li a:hover {
         background: rgba(255,255,255,0.15);
     }
+    .brochure-dropdown > a {
+        color: white !important;
+    }
+
+    .brochure-dropdown {
+        border-bottom: none !important;  /* Mobile में border-bottom हटाओ */
+    }
+
+    .nav-menu li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Brochure dropdown ke li ko fixed height do */
+    .brochure-dropdown {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* Dropdown OPEN hone par parent ki height collapse nahi hogi */
+    .brochure-dropdown.open {
+        height: auto !important;
+    }
+}
+
+@media (max-width: 768px){
+    .brochure-dropdown > a {
+        color: white !important;
+    }
 }
 
 
